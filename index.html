@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Input Locations</h1>
+    <form method="POST">
+        <div id="location-inputs">
+            <div class="location">
+                <label>Address: <input type="text" name="address"></label>
+                <label>Radius: <input type="text" name="radius"></label>
+            </div>
+        </div>
+        <button type="submit">Generate Map</button>
+    </form>
+    
+    <div>
+        {{ map_html|safe }}
+    </div>
+
+    <h2>Data List</h2>
+    <div class="data-list">
+        {% if data is not none %}
+            {% for row in data %}
+                {% if row['Photos'] is not none %}
+                <div class="data-item">
+                    <img src="{{ row['Photos'] }}" alt="Picture of {{ row['Name'] }}">
+                    <strong>{{ row['Name'] }}</strong>: {{ row['Address'] }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
